@@ -24,8 +24,12 @@ async function fetchHolidays() {
 // デフォルト値の設定
 function initializeDefaults() {
     const today = new Date();
-    const dateStr = today.toISOString().split('T')[0];
+    const year = today.getFullYear();
+    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const day = String(today.getDate()).padStart(2, '0');
+    const dateStr = `${year}-${month}-${day}`;
     document.getElementById('startDate').value = dateStr;
+    document.getElementById('dayCount').value = '300';
 }
 
 // 日付を取得する関数
@@ -454,11 +458,20 @@ document.getElementById('clearSchedulesBtn').addEventListener('click', clearSche
 
 // 初期化
 async function initialize() {
-    loadSchedules(); // LocalStorageから読み込み
-    await fetchHolidays();
-    initializeDefaults();
-    generateCalendar();
-    renderSchedules();
+    const loadingScreen = document.getElementById('loadingScreen');
+
+    try {
+        loadSchedules(); // LocalStorageから読み込み
+        await fetchHolidays();
+        initializeDefaults();
+        generateCalendar();
+        renderSchedules();
+    } finally {
+        // カレンダー生成後、少し遅延してから非表示にする（スムーズな表示のため）
+        setTimeout(() => {
+            loadingScreen.classList.add('hidden');
+        }, 300);
+    }
 }
 
 initialize();
