@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>無限スクロールカレンダー</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="controls">
+            <div class="control-group">
+                <label for="startDate">開始日:</label>
+                <input type="date" id="startDate">
+            </div>
+            <div class="control-group">
+                <label for="dayCount">表示日数:</label>
+                <input type="number" id="dayCount" min="1" max="1000" value="300">
+            </div>
+            <button id="generateBtn">カレンダー生成</button>
+        </div>
+        <div class="calendar-wrapper">
+            <div id="calendar" class="calendar"></div>
+        </div>
+        <div class="schedule-wrapper">
+            <div class="schedule-header">
+                <span>スケジュール</span>
+                <span class="schedule-note">※リロードしてもスケジュールは残ります。消したい場合は<button id="clearSchedulesBtn" class="clear-btn">クリア</button></span>
+            </div>
+            <div id="schedule" class="schedule-content">
+                <div id="scheduleList" class="schedule-list"></div>
+                <div class="schedule-add-row">
+                    <input type="date" id="newScheduleDate" class="schedule-date-input">
+                    <input type="text" id="newScheduleName" class="schedule-name-input" placeholder="スケジュール名">
+                    <button id="addScheduleBtn" class="schedule-add-btn">+</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>

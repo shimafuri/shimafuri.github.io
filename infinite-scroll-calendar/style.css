@@ -1,0 +1,424 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    font-size: 16px;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f5f5f5;
+    font-size: 0.75rem; /* 12px */
+}
+
+.container {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    padding: 0.25rem; /* 4px */
+    gap: 0.25rem; /* 4px */
+}
+
+.controls {
+    background: white;
+    padding: 0.25rem 0.5rem; /* 4px 8px */
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    display: flex;
+    gap: 0.5rem; /* 8px */
+    align-items: center;
+    flex-wrap: wrap;
+    flex-shrink: 0;
+}
+
+.control-group {
+    display: flex;
+    align-items: center;
+    gap: 0.25rem; /* 4px */
+}
+
+.control-group label {
+    font-weight: bold;
+    color: #333;
+}
+
+.control-group input {
+    padding: 0.125rem 0.25rem; /* 2px 4px */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.75rem; /* 12px */
+}
+
+#dayCount {
+    width: 4rem; /* 64px */
+}
+
+#generateBtn {
+    padding: 0.125rem 0.5rem; /* 2px 8px */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.75rem; /* 12px */
+    font-weight: bold;
+}
+
+#generateBtn:hover {
+    background-color: #45a049;
+}
+
+.calendar-wrapper {
+    background: white;
+    padding: 0.25rem; /* 4px */
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    overflow-x: auto;
+    overflow-y: hidden;
+    flex: 1;
+    min-height: 0;
+    max-height: 100%;
+}
+
+.schedule-wrapper {
+    background: white;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+    flex-shrink: 0;
+    display: flex;
+    flex-direction: column;
+    max-height: 50vh; /* 画面の半分まで */
+}
+
+.schedule-header {
+    padding: 0.25rem 0.5rem; /* 4px 8px */
+    border-bottom: 2px solid #2196F3;
+    font-weight: bold;
+    font-size: 0.75rem; /* 12px */
+    color: #2196F3;
+    flex-shrink: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 0.5rem; /* 8px */
+}
+
+.schedule-note {
+    font-size: 0.625rem; /* 10px */
+    font-weight: normal;
+    color: #666;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem; /* 4px */
+}
+
+.clear-btn {
+    padding: 0.125rem 0.25rem; /* 2px 4px */
+    background-color: #f44336;
+    color: white;
+    border: none;
+    border-radius: 3px;
+    cursor: pointer;
+    font-size: 0.625rem; /* 10px */
+    font-weight: bold;
+}
+
+.clear-btn:hover {
+    background-color: #d32f2f;
+}
+
+.schedule-content {
+    padding: 0.25rem 0.5rem; /* 4px 8px */
+    overflow-y: auto;
+    flex: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem; /* 4px */
+}
+
+.schedule-list {
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem; /* 2px */
+}
+
+.schedule-item {
+    display: flex;
+    gap: 0.25rem; /* 4px */
+    align-items: center;
+    padding: 0.125rem 0.25rem; /* 2px 4px */
+    background-color: #f8f9fa;
+    border-radius: 4px;
+    font-size: 0.75rem; /* 12px */
+}
+
+.schedule-item-date {
+    color: #666;
+    min-width: 5rem; /* 80px */
+    font-weight: normal;
+}
+
+.schedule-item-name {
+    flex: 1;
+    color: #333;
+}
+
+.schedule-item-delete {
+    background: none;
+    border: none;
+    color: #f44336;
+    cursor: pointer;
+    font-size: 1rem; /* 16px */
+    padding: 0 0.25rem;
+}
+
+.schedule-item-delete:hover {
+    color: #d32f2f;
+}
+
+.schedule-add-row {
+    display: flex;
+    gap: 0.25rem; /* 4px */
+    align-items: center;
+    padding-top: 0.25rem; /* 4px */
+    border-top: 1px solid #e0e0e0;
+}
+
+.schedule-date-input {
+    padding: 0.125rem 0.25rem; /* 2px 4px */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.75rem; /* 12px */
+    min-width: 6rem; /* 96px */
+}
+
+.schedule-name-input {
+    flex: 1;
+    padding: 0.125rem 0.25rem; /* 2px 4px */
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 0.75rem; /* 12px */
+}
+
+.schedule-add-btn {
+    width: 2rem; /* 32px */
+    height: 2rem; /* 32px */
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 1.25rem; /* 20px */
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.schedule-add-btn:hover {
+    background-color: #45a049;
+}
+
+.calendar {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem; /* 16px */
+    font-size: 0.75rem; /* 12px */
+}
+
+.calendar-column {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    position: relative;
+}
+
+.weekday-header {
+    display: flex;
+    align-items: stretch;
+    min-height: 2rem; /* 32px */
+    background-color: #f0f0f0;
+}
+
+.weekday-header-label {
+    min-width: 4rem; /* 64px */
+    width: 4rem; /* 64px */
+    border-right: 1px solid #ddd;
+    border-bottom: 2px solid #999;
+}
+
+.weekday-header-days {
+    display: flex;
+    border-bottom: 2px solid #999;
+}
+
+.weekday-header-day {
+    width: 2rem; /* 32px */
+    height: 2rem; /* 32px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #ddd;
+    font-weight: bold;
+    font-size: 0.75rem; /* 12px */
+    color: #333;
+}
+
+.weekday-header-day.sunday {
+    color: #f44336;
+}
+
+.weekday-header-day.saturday {
+    color: #2196F3;
+}
+
+.week-row {
+    display: flex;
+    align-items: stretch;
+    min-height: 2rem; /* 32px */
+}
+
+.week-label-cell {
+    min-width: 4rem; /* 64px */
+    width: 4rem; /* 64px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 0.125rem; /* 0 2px */
+    font-weight: bold;
+    font-size: 0.75rem; /* 12px */
+    color: #666;
+    background-color: #f8f9fa;
+    border-right: 1px solid #ddd;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.week-label-cell.empty {
+    background-color: white;
+    border-right: 1px solid #ddd;
+}
+
+.week-days {
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+    border-right: 1px solid #e0e0e0;
+}
+
+.day-cell {
+    width: 2rem; /* 32px */
+    height: 2rem; /* 32px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-right: 1px solid #e0e0e0;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.day-cell.empty {
+    background-color: #fafafa;
+    cursor: default;
+}
+
+.day-cell:hover {
+    background-color: #e3f2fd;
+}
+
+.day-cell.empty:hover {
+    background-color: #fafafa;
+}
+
+.day-cell.holiday {
+    color: #f44336;
+    font-weight: normal;
+}
+
+.day-cell.saturday {
+    color: #2196F3;
+    font-weight: normal;
+}
+
+.day-cell.today {
+    background-color: #fff3e0;
+    border: 2px solid #ff9800;
+}
+
+.day-number {
+    font-size: 0.75rem; /* 12px */
+}
+
+.day-cell.has-schedule .day-number {
+    border: 2px solid #4CAF50;
+    border-radius: 50%;
+    width: 1.5rem; /* 24px */
+    height: 1.5rem; /* 24px */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.schedule-indicator {
+    position: absolute;
+    pointer-events: none;
+    z-index: 10;
+}
+
+.schedule-line {
+    position: absolute;
+    background-color: #4CAF50;
+    height: 2px;
+    transform-origin: left center;
+}
+
+.schedule-label {
+    position: absolute;
+    background-color: white;
+    border: 1px solid #4CAF50;
+    border-radius: 4px;
+    padding: 0.125rem 0.25rem; /* 2px 4px */
+    font-size: 0.75rem; /* 12px */
+    white-space: nowrap;
+    color: #333;
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .controls {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .control-group {
+        width: 100%;
+    }
+
+    .control-group input {
+        flex: 1;
+    }
+
+    #generateBtn {
+        width: 100%;
+    }
+
+    .day-cell {
+        width: 40px;
+        height: 40px;
+    }
+
+    .row-label {
+        min-width: 60px;
+        font-size: 12px;
+    }
+}
